@@ -1,100 +1,110 @@
 <!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8">
+  <title>Hook Maker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hook Maker – AI Viral Hook Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    body, html {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: 'Poppins', sans-serif;
       background-color: #121212;
-      color: #fff;
-      overflow-x: hidden;
+      color: #f0f0f0;
+      overflow: hidden;
     }#splash {
-  position: fixed;
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  animation: fadeOut 1.5s ease-out 3s forwards;
+  animation: fadeIn 1.5s ease-in, fadeOut 1.5s ease-out 3s forwards;
 }
 #splash h1 {
-  font-size: 36px;
+  font-size: 32px;
   background: linear-gradient(45deg, #7F00FF, #00C3FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-header {
+#main-content {
+  display: none;
   text-align: center;
-  padding: 24px;
+  padding: 20px;
+}
+
+#header {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
+  margin: 20px 0;
   background: linear-gradient(45deg, #7F00FF, #00C3FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: fadeSlideDown 1s ease-out;
 }
 
-main {
-  padding: 20px;
-  max-width: 600px;
-  margin: auto;
-}
-
-input, select, button {
-  width: 100%;
+select, input, button {
   padding: 12px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 10px;
+  margin: 12px;
   font-size: 16px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
 }
-
-input, select {
-  background: #1e1e1e;
-  color: #fff;
+select, input {
+  background: #1f1f1f;
+  color: white;
 }
-
 button {
   background: linear-gradient(45deg, #7F00FF, #00C3FF);
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
+  transition: transform 0.3s;
 }
-
 button:hover {
   transform: scale(1.05);
 }
 
+#result {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .hook {
-  background: #1c1c1c;
-  margin-top: 15px;
-  padding: 15px;
-  border-radius: 10px;
+  background: #1e1e1e;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 12px;
   box-shadow: 0 2px 10px rgba(127, 0, 255, 0.3);
+  width: 90%;
+  max-width: 400px;
   position: relative;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
 }
 
 .copy-btn {
   position: absolute;
   top: 10px;
   right: 10px;
+  background: linear-gradient(45deg, #7F00FF, #00C3FF);
+  color: white;
+  border: none;
   padding: 5px 10px;
   font-size: 12px;
-  background: linear-gradient(45deg, #7F00FF, #00C3FF);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-#notif {
+.notif {
   position: fixed;
   bottom: 20px;
   background: #00C3FF;
@@ -103,111 +113,108 @@ button:hover {
   border-radius: 20px;
   font-weight: bold;
   display: none;
+  animation: slideUp 0.5s;
 }
 
-.privacy {
-  margin-top: 50px;
-  font-size: 14px;
-  color: #aaa;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
 @keyframes fadeOut {
+  from { opacity: 1; }
   to { opacity: 0; visibility: hidden; }
+}
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeSlideDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
   </style>
 </head>
 <body>
-  <div id="splash">
-    <h1>Hook Maker</h1>
-  </div>  <header>Hook Maker – AI Hook Generator</header>
-  <main>
-    <input type="text" id="videoTopic" placeholder="Isi video kamu tentang...">
-    <select id="category">
-      <option value="umum">Umum</option>
-      <option value="edukasi">Edukasi</option>
-      <option value="motivasi">Motivasi</option>
-      <option value="hiburan">Hiburan</option>
-      <option value="bisnis">Bisnis</option>
-    </select>
-    <button onclick="generateHooks()">Buat 3 Hook</button><div id="result"></div>
-<div id="notif">Hook berhasil disalin!</div>
-
-<div class="privacy">
-  <h3>Kebijakan Privasi</h3>
-  <p>Aplikasi ini tidak mengumpulkan data pribadi pengguna. Semua data hanya diproses secara lokal di perangkat Anda. Tidak ada pelacakan, login, atau pengumpulan informasi sensitif.</p>
-  <p>Email kontak: support@hookmaker.app</p>
+<div id="splash">
+  <h1>Hook Maker</h1>
 </div>
+<div id="main-content">
+  <div id="header">Hook Maker</div>  <input type="text" id="videoTopic" placeholder="Tulis isi video kamu...">
+  <select id="category">
+    <option value="umum">Pilih kategori hook</option>
+    <option value="edukasi">Edukasi</option>
+    <option value="hiburan">Hiburan</option>
+    <option value="bisnis">Bisnis</option>
+    <option value="misteri">Misteri</option>
+    <option value="motivasi">Motivasi</option>
+    <option value="beauty">Kecantikan</option>
+    <option value="clickbait">Clickbait</option>
+  </select>
+  <button onclick="generateHooks()">Buat 3 Hook</button>  <div id="result"></div>
+  <div id="notif" class="notif">Hook berhasil disalin!</div>
+</div><script>
+const hookTemplates = {
+  umum: [
+    "Kalau kamu suka {topic}, kamu wajib lihat ini!",
+    "Gak banyak orang tahu tentang {topic}.",
+    "Tunggu sampai akhir kalau kamu penasaran soal {topic}!",
+    "Apa yang terjadi saat {topic}? Tonton sekarang!",
+    "Kenapa {topic} bisa bikin semua orang heboh?"
+  ],
+  edukasi: [
+    "Fakta mengejutkan tentang {topic} yang jarang dibahas!",
+    "Bisa jadi kamu salah paham soal {topic} selama ini.",
+    "Yuk belajar soal {topic} dengan cara menyenangkan!"
+  ],
+  hiburan: [
+    "Siap-siap ngakak! {topic} ini lucu banget.",
+    "Kalau kamu bosan, {topic} ini wajib kamu lihat.",
+    "Gokil! {topic} ini pasti bikin hari kamu ceria."
+  ],
+  // tambahkan kategori lainnya di sini...
+};
 
-  </main>  <script>
-    const hooksData = {
-      umum: [
-        "Kalau kamu suka {topic}, kamu wajib lihat ini!",
-        "Ini fakta mengejutkan soal {topic}.",
-        "Banyak orang belum tahu soal {topic}."
-      ],
-      edukasi: [
-        "Pernah kepikiran kenapa {topic} penting?",
-        "Begini cara kerja {topic} yang jarang dijelaskan.",
-        "5 hal tentang {topic} yang harus kamu tahu."
-      ],
-      motivasi: [
-        "Kalau kamu lagi butuh semangat, dengerin ini tentang {topic}.",
-        "Jangan menyerah sebelum tahu ini soal {topic}.",
-        "{topic} bisa jadi titik balik hidupmu!"
-      ],
-      hiburan: [
-        "Kamu pasti ngakak kalau lihat {topic} ini!",
-        "Kejadian {topic} ini kocak banget!",
-        "Gak nyangka {topic} bisa jadi hiburan kayak gini."
-      ],
-      bisnis: [
-        "Rahasia sukses dalam {topic} yang jarang dibahas!",
-        "{topic} ini bisa jadi peluang besar buatmu.",
-        "Cara cerdas mulai {topic} tanpa modal besar."
-      ]
-    };
+function generateHooks() {
+  const topic = document.getElementById('videoTopic').value.trim();
+  const category = document.getElementById('category').value;
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = "";
 
-    function generateHooks() {
-      const topic = document.getElementById('videoTopic').value.trim();
-      const cat = document.getElementById('category').value;
-      const result = document.getElementById('result');
-      result.innerHTML = "";
+  if (!topic) {
+    resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>";
+    return;
+  }
 
-      if (!topic) {
-        result.innerHTML = '<div class="hook">Tolong isi topik dulu.</div>';
-        return;
-      }
+  const templates = hookTemplates[category] || hookTemplates['umum'];
+  let used = [];
+  for (let i = 0; i < 3; i++) {
+    let idx;
+    do {
+      idx = Math.floor(Math.random() * templates.length);
+    } while (used.includes(idx));
+    used.push(idx);
 
-      const templates = hooksData[cat];
-      const used = [];
+    const text = templates[idx].replace("{topic}", topic);
+    const hookElement = document.createElement('div');
+    hookElement.className = 'hook';
+    hookElement.innerHTML = `${text}<button class="copy-btn" onclick="copyToClipboard('${text.replace(/'/g, "\\'")}')">Copy</button>`;
+    resultDiv.appendChild(hookElement);
+  }
+}
 
-      for (let i = 0; i < 3; i++) {
-        let index;
-        do {
-          index = Math.floor(Math.random() * templates.length);
-        } while (used.includes(index));
-        used.push(index);
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const notif = document.getElementById('notif');
+    notif.style.display = 'block';
+    setTimeout(() => { notif.style.display = 'none'; }, 2000);
+  });
+}
 
-        const text = templates[index].replace('{topic}', topic);
-
-        const div = document.createElement('div');
-        div.className = 'hook';
-        div.innerHTML = `${text} <button class='copy-btn' onclick="copyToClipboard('${text.replace(/'/g, "\\'")}')">Copy</button>`;
-        result.appendChild(div);
-      }
-    }
-
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const notif = document.getElementById('notif');
-        notif.style.display = 'block';
-        setTimeout(() => notif.style.display = 'none', 2000);
-      });
-    }
-
-    setTimeout(() => {
-      document.getElementById('splash').style.display = 'none';
-    }, 3500);
-  </script></body>
-</html> 
+setTimeout(() => {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+  document.body.style.overflow = 'auto';
+}, 4500);
+</script></body>
+</html>
