@@ -87,9 +87,7 @@
       animation: fadeIn 1s forwards;
     }
     .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      margin-top: 15px;
       background: linear-gradient(45deg, #7F00FF, #00C3FF);
       color: white;
       border: none;
@@ -133,6 +131,13 @@
 </div>
 <div id="main-content">
   <div id="header">Hook Maker</div>
+  <select id="hookCategory">
+    <option value="umum">Umum</option>
+    <option value="drama">Drama</option>
+    <option value="misteri">Misteri</option>
+    <option value="fakta">Fakta</option>
+    <option value="clickbait">Clickbait Elegan</option>
+  </select>
   <input type="text" id="videoTopic" placeholder="Tulis isi video kamu...">
   <br>
   <button onclick="generateHooks()">Buat 3 Hook Elegan</button>
@@ -140,57 +145,47 @@
   <div id="notif" class="notif">Hook berhasil disalin!</div>
 </div>
 <script>
-function generateHooks() {
-  const topic = document.getElementById('videoTopic').value.trim();
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = "";
-  if (topic === "") {
-    resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>";
-    return;
-  }
-  const hooks = [
-    `Kamu tidak akan percaya apa yang terjadi soal ${topic}...`,
-    `Ini dia fakta ${topic} yang disembunyikan banyak orang.`,
-    `Rahasia ${topic} yang akhirnya terungkap di sini!`,
-    `Semua orang membicarakan ${topic} – kamu bakal kaget alasannya.`,
-    `Kalau kamu lewati ini tentang ${topic}, kamu bakal nyesel.`,
-    `Inilah alasan ${topic} bisa mengubah segalanya.`,
-    `Video tentang ${topic} ini bakal bikin kamu mikir dua kali.`,
-    `${topic} seperti ini jarang dibahas – dan ini versinya yang paling jujur.`,
-    `Apakah ${topic} seberbahaya itu? Jawabannya ada di sini.`,
-    `${topic} ini bikin semua orang berhenti scroll – dan ini alasannya.`
-  ];
-  let used = [];
-  for (let i = 0; i < 3; i++) {
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * hooks.length);
-    } while (used.includes(randomIndex));
-    used.push(randomIndex);
-    const hookText = hooks[randomIndex];
-    const hookElement = document.createElement('div');
-    hookElement.className = 'hook';
-    hookElement.innerHTML = `
-      ${hookText}
-      <button class="copy-btn" onclick="copyToClipboard('${hookText.replace(/'/g, "\\'")}')">Copy</button>
-    `;
-    resultDiv.appendChild(hookElement);
-  }
-}
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const notif = document.getElementById('notif');
-    notif.style.display = 'block';
-    setTimeout(() => { notif.style.display = 'none'; }, 2000);
-  }, (err) => {
-    alert('Gagal menyalin teks: ', err);
-  });
-}
-setTimeout(() => {
-  document.getElementById('splash').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-  document.body.style.overflow = 'auto';
-}, 4500);
-</script>
+const hookLibrary = {
+  umum: [
+    'Kamu tidak akan percaya apa yang terjadi soal {topic}...',
+    'Rahasia {topic} yang akhirnya terungkap di sini!',
+    'Kalau kamu lewati ini tentang {topic}, kamu bakal nyesel.',
+    'Inilah alasan {topic} bisa mengubah segalanya.',
+    '{topic} seperti ini jarang dibahas – dan ini versinya yang paling jujur.',
+  ],
+  drama: [
+    'Cerita ini tentang {topic} akan menyentuh hatimu.',
+    '{topic} membuat semua orang menangis.',
+    'Kamu nggak akan kuat nonton kisah {topic} ini sampai habis.',
+    'Air mata pasti jatuh saat dengar kisah {topic} ini.',
+    'Drama {topic} ini menyimpan pesan mendalam.',
+  ],
+  misteri: [
+    'Apa yang sebenarnya terjadi dengan {topic}?',
+    'Fakta mengejutkan dari {topic} akhirnya terbongkar.',
+    'Jangan nonton sendirian – {topic} penuh teka-teki!',
+    '{topic} menyimpan misteri yang belum terpecahkan.',
+    'Ini bukan kebetulan – {topic} terlalu aneh untuk dijelaskan.',
+  ],
+  fakta: [
+    '5 fakta mengejutkan tentang {topic}.',
+    'Ternyata, {topic} punya sisi lain yang jarang diketahui.',
+    'Ini dia data asli tentang {topic}, no edit!',
+    '{topic} dijelaskan dengan logika dan bukti.',
+    'Nonton ini sebelum percaya soal {topic}!',
+  ],
+  clickbait: [
+    '{topic} ini bikin semua orang berhenti scroll – dan ini alasannya.',
+    'Ini dia fakta {topic} yang disembunyikan banyak orang.',
+    'Semua orang membicarakan {topic} – kamu bakal kaget alasannya.',
+    'Apakah {topic} seberbahaya itu? Jawabannya ada di sini.',
+    'Video tentang {topic} ini bakal bikin kamu mikir dua kali.'
+  ]
+};function generateHooks() { const topic = document.getElementById('videoTopic').value.trim(); const category = document.getElementById('hookCategory').value; const resultDiv = document.getElementById('result'); resultDiv.innerHTML = ""; if (topic === "") { resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>"; return; } const hooks = hookLibrary[category].map(h => h.replace(/{topic}/g, topic)); let used = []; for (let i = 0; i < 3; i++) { let randomIndex; do { randomIndex = Math.floor(Math.random() * hooks.length); } while (used.includes(randomIndex)); used.push(randomIndex); const hookText = hooks[randomIndex]; const hookElement = document.createElement('div'); hookElement.className = 'hook'; hookElement.innerHTML = ${hookText}<br> <button class="copy-btn" onclick="copyToClipboard('${hookText.replace(/'/g, "\\'")}')">Copy</button>; resultDiv.appendChild(hookElement); } }
+
+function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { const notif = document.getElementById('notif'); notif.style.display = 'block'; setTimeout(() => { notif.style.display = 'none'; }, 2000); }, (err) => { alert('Gagal menyalin teks: ', err); }); }
+
+setTimeout(() => { document.getElementById('splash').style.display = 'none'; document.getElementById('main-content').style.display = 'block'; document.body.style.overflow = 'auto'; }, 4500); </script>
+
 </body>
 </html>
