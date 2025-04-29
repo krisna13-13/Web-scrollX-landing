@@ -2,254 +2,209 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Hook Maker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hook Maker PRO</title>
   <style>
-    body, html {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
       font-family: 'Poppins', sans-serif;
-      background-color: #121212;
-      color: #f0f0f0;
-      overflow: hidden;
+      background: linear-gradient(135deg, #4A00E0, #8E2DE2);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-
     #splash {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #121212;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #4A00E0;
       display: flex;
       justify-content: center;
       align-items: center;
-      animation: fadeIn 1.5s ease-in, fadeOut 1.5s ease-out 3s forwards;
-    }
-    #splash h1 {
       font-size: 32px;
-      background: linear-gradient(45deg, #7F00FF, #00C3FF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 2s ease-out;
     }
-
-    #main-content {
-      display: none;
-      padding: 16px;
+    .container {
+      max-width: 480px;
+      width: 100%;
     }
-
-    #header {
-      font-size: 28px;
-      font-weight: 700;
+    h1 {
       text-align: center;
-      margin: 20px 0;
-      background: linear-gradient(45deg, #7F00FF, #00C3FF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
-
     input, select, button {
       width: 100%;
+      margin-top: 10px;
       padding: 12px;
-      margin: 8px 0;
-      font-size: 16px;
-      border-radius: 10px;
       border: none;
-      box-sizing: border-box;
+      border-radius: 10px;
+      font-size: 16px;
     }
-
-    input, select {
-      background: #1f1f1f;
-      color: #fff;
+    input::placeholder {
+      color: #aaa;
     }
-
     button {
-      background: linear-gradient(45deg, #7F00FF, #00C3FF);
-      color: white;
-      font-weight: bold;
+      background-color: #00C9FF;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
+      margin-top: 15px;
     }
-
+    button:hover {
+      background-color: #0056b3;
+    }
     .hook {
-      background: #1e1e1e;
-      margin: 10px 0;
-      padding: 16px;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
       border-radius: 12px;
       position: relative;
-      box-shadow: 0 2px 10px rgba(127, 0, 255, 0.3);
     }
-
     .copy-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      background: linear-gradient(45deg, #7F00FF, #00C3FF);
-      color: white;
+      top: 10px;
+      right: 10px;
+      background: #ff6a00;
       border: none;
-      padding: 6px 10px;
+      padding: 5px 10px;
+      border-radius: 8px;
       font-size: 12px;
-      border-radius: 6px;
       cursor: pointer;
+      color: white;
     }
-
-    .notif {
-      position: fixed;
-      bottom: 20px;
-      background: #00C3FF;
-      color: black;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
+    #notif {
+      margin-top: 15px;
+      background: #28a745;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
       display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    @media (max-width: 600px) {
-      #header { font-size: 24px; }
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div id="splash">
-  <h1>Hook Maker</h1>
-</div>
+<div id="splash">Hook Maker PRO</div>
 
-<div id="main-content">
-  <div id="header">Hook Maker</div>
-
-  <input type="text" id="videoTopic" placeholder="Masukkan topik video kamu...">
+<div class="container" style="display:none;" id="mainApp">
+  <h1>Hook Maker PRO</h1>
+  <input type="text" id="videoTopic" placeholder="Masukkan tema videomu...">
   
-  <select id="style">
-    <option value="dramatis">Dramatis</option>
-    <option value="clickbait">Clickbait</option>
-    <option value="edukatif">Edukasi</option>
-    <option value="inspiratif">Inspiratif</option>
-    <option value="lucu">Lucu</option>
-    <option value="kaget">Mengagetkan</option>
-    <option value="misterius">Misterius</option>
-    <option value="sad">Sedih & Relatable</option>
+  <select id="hookCategory">
+    <option value="vlog">Vlog</option>
+    <option value="edukasi">Edukasi</option>
+    <option value="hiburan">Hiburan</option>
+    <option value="misteri">Misteri</option>
+    <option value="motivasi">Motivasi</option>
   </select>
 
-  <button onclick="generateHooks()">Buat 3 Hook</button>
+  <button onclick="generateHooks()">Buat Hook</button>
 
   <div id="result"></div>
-  <div id="notif" class="notif">Hook berhasil disalin!</div>
+
+  <div id="notif">Teks berhasil disalin!</div>
 </div>
 
 <script>
-const templates = {
-  dramatis: [
-    "Kalau kamu tahu soal {topic}, hidupmu gak akan sama lagi.",
-    "Ini bukan cuma tentang {topic}, ini tentang hidup dan mati!",
-    "Semua berubah sejak {topic} terjadi.",
-    "Waktu pertama kali aku dengar {topic}, aku langsung merinding!",
-    "Banyak yang mengabaikan {topic}, sampai akhirnya menyesal."
-  ],
-  clickbait: [
-    "Kamu nggak akan percaya apa yang terjadi setelah {topic}!",
-    "{topic}? Ini dia fakta yang bikin geleng-geleng kepala!",
-    "Jangan lanjut sebelum tahu tentang {topic} ini!",
-    "Orang-orang nggak sadar bahwa {topic} ini sangat penting.",
-    "Terungkap! Rahasia tersembunyi di balik {topic}!"
-  ],
-  edukatif: [
-    "Apa sebenarnya yang terjadi dengan {topic}?",
-    "Inilah alasan kenapa {topic} sangat penting untuk kita pelajari.",
-    "Fakta mengejutkan tentang {topic} yang jarang dibahas.",
-    "Yuk kita bedah bersama apa itu {topic}.",
-    "Gimana sih cara kerja {topic}? Yuk cari tahu!"
-  ],
-  inspiratif: [
-    "Jangan pernah menyerah! Ini kisah tentang {topic}.",
-    "{topic} bisa jadi awal dari hidupmu yang luar biasa.",
-    "Kalau mereka bisa karena {topic}, kamu juga bisa!",
-    "{topic} bukan akhir segalanya. Ini awal baru.",
-    "Kisah ini akan menginspirasi kamu untuk terus maju: {topic}."
-  ],
-  lucu: [
-    "{topic} ini bikin ngakak sampe nangis!",
-    "Kalau kamu lagi badmood, lihat {topic} ini.",
-    "Nggak kuat! {topic} ini bener-bener absurd.",
-    "Satu kata buat {topic}: NGAKAK!",
-    "Kamu bakal senyum-senyum sendiri lihat {topic}."
-  ],
-  kaget: [
-    "Kamu nggak siap dengan apa yang akan terjadi di {topic}!",
-    "Plot twist-nya bener-bener gila di bagian {topic}!",
-    "Waktu {topic} muncul, semuanya berubah drastis.",
-    "Nggak ada yang nyangka ending dari {topic} begini.",
-    "Deg-degan banget pas {topic} muncul!"
-  ],
-  misterius: [
-    "Apa yang sebenarnya tersembunyi di balik {topic}?",
-    "Cerita tentang {topic} ini bikin bulu kuduk merinding!",
-    "Sampai sekarang, {topic} masih jadi misteri besar.",
-    "Banyak pertanyaan belum terjawab soal {topic}.",
-    "Mitos atau fakta? Temukan jawabannya di {topic}."
-  ],
-  sad: [
-    "Kadang hidup nggak adil... seperti cerita {topic}.",
-    "Nggak kuat lihat bagian {topic}-nya...",
-    "Ini bukan sekadar cerita. {topic} adalah kenyataan pahit.",
-    "Siap-siap baper lihat {topic}.",
-    "Satu cerita yang bikin hati tersentuh: {topic}."
-  ]
-};
+  // Splash screen
+  window.onload = () => {
+    setTimeout(() => {
+      document.getElementById('splash').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('splash').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+      }, 2000);
+    }, 1500);
+  };
 
-function generateHooks() {
-  const topic = document.getElementById('videoTopic').value.trim();
-  const style = document.getElementById('style').value;
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = "";
+  // Hook generator
+  function generateHooks() {
+    const topic = document.getElementById('videoTopic').value.trim();
+    const category = document.getElementById('hookCategory').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = "";
 
-  if (!topic) {
-    resultDiv.innerHTML = "<div class='hook'>Masukkan topik videomu dulu ya!</div>";
-    return;
-  }
+    if (topic === "") {
+      resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>";
+      return;
+    }
 
-  const hooks = templates[style];
-  const used = new Set();
+    const hookTemplates = {
+      vlog: [
+        `Kamu nggak bakal nyangka apa yang terjadi waktu ${topic}...`,
+        `Daily vlog ini bakal bikin kamu baper! ${topic} bukan sembarang cerita.`,
+        `${topic} dimulai biasa aja… tapi ending-nya nggak terduga.`,
+        `Kalau kamu pernah ngalamin ${topic}, video ini bakal bikin kamu relate banget.`,
+        `Satu hari penuh aku ngalamin ${topic} — dan ini yang terjadi!`
+      ],
+      edukasi: [
+        `Belajar tentang ${topic} bisa jadi menyenangkan? Ini buktinya!`,
+        `Gak usah buka buku! ${topic} dijelasin super simpel di sini.`,
+        `Kamu nggak perlu pintar buat ngerti ${topic}, cukup tonton ini.`,
+        `Kalau kamu paham ${topic}, kamu bakal 10 langkah lebih maju.`,
+        `Ini cara tercepat buat ngerti ${topic} tanpa ribet.`
+      ],
+      hiburan: [
+        `Siapin dirimu… karena ${topic} ini bakal bikin kamu ngakak terus!`,
+        `${topic} + vibes lucu = kombinasi paling pecah hari ini!`,
+        `Bukan konten biasa! ${topic} versi gokil ini wajib ditonton.`,
+        `Ssst… yang suka hiburan absurd, ${topic} ini fix buat kamu.`,
+        `${topic} ini beda dari yang lain. Berani coba nonton?`
+      ],
+      misteri: [
+        `Ada yang janggal di balik ${topic}. Dan aku menemukannya.`,
+        `Rahasia besar tersembunyi di balik ${topic} — baru sekarang dibongkar.`,
+        `${topic} bukan hal biasa. Ini bisa bikin bulu kuduk merinding.`,
+        `Tonton sampai akhir. Kamu akan sadar ada yang aneh dengan ${topic}.`,
+        `Setiap detail ${topic} ini menyimpan tanda-tanda misterius.`
+      ],
+      motivasi: [
+        `${topic} bisa jadi titik balik hidupmu. Mulai dari sini.`,
+        `Kalau kamu hampir menyerah, ${topic} ini untukmu.`,
+        `Jangan lewati video ini kalau kamu lagi butuh semangat. ${topic} bisa ubah harimu.`,
+        `${topic} ini bukti kalau kamu lebih kuat dari yang kamu kira.`,
+        `Percaya deh, setelah lihat ${topic}, kamu bakal punya alasan buat bangkit.`
+      ]
+    };
 
-  while (used.size < 3) {
-    const index = Math.floor(Math.random() * hooks.length);
-    if (!used.has(index)) {
+    const hooks = hookTemplates[category] || hookTemplates["vlog"];
+    const used = new Set();
+
+    for (let i = 0; i < 3; i++) {
+      let index;
+      do {
+        index = Math.floor(Math.random() * hooks.length);
+      } while (used.has(index));
       used.add(index);
-      const text = hooks[index].replace("{topic}", topic);
-      const hookEl = document.createElement('div');
-      hookEl.className = 'hook';
-      hookEl.innerHTML = `
-        ${text}
-        <button class="copy-btn" onclick="copyToClipboard('${text.replace(/'/g, "\\'")}')">Copy</button>
+
+      const hookText = hooks[index];
+      const hookElement = document.createElement('div');
+      hookElement.className = 'hook';
+      hookElement.innerHTML = `
+        ${hookText}
+        <button class="copy-btn" onclick="copyToClipboard('${hookText.replace(/'/g, "\\'")}')">Copy</button>
       `;
-      resultDiv.appendChild(hookEl);
+      resultDiv.appendChild(hookElement);
     }
   }
-}
 
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const notif = document.getElementById('notif');
-    notif.style.display = 'block';
-    setTimeout(() => notif.style.display = 'none', 2000);
-  });
-}
-
-setTimeout(() => {
-  document.getElementById('splash').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-  document.body.style.overflow = 'auto';
-}, 4500);
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const notif = document.getElementById('notif');
+      notif.style.display = 'block';
+      setTimeout(() => {
+        notif.style.display = 'none';
+      }, 2000);
+    });
+  }
 </script>
+
 </body>
 </html>
