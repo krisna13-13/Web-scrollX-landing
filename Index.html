@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <title>Hook Maker</title>
@@ -13,193 +14,226 @@
       background-color: #121212;
       color: #f0f0f0;
       overflow: hidden;
-    }#splash {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #121212;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 1.5s ease-in, fadeOut 1.5s ease-out 3s forwards;
-}
-#splash h1 {
-  font-size: 32px;
-  background: linear-gradient(45deg, #7F00FF, #00C3FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+    }
 
-#main-content {
-  display: none;
-  text-align: center;
-  padding: 20px;
-}
+    #splash {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.5s ease-in, fadeOut 1.5s ease-out 3s forwards;
+    }
+    #splash h1 {
+      font-size: 32px;
+      background: linear-gradient(45deg, #7F00FF, #00C3FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-#header {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 20px 0;
-  background: linear-gradient(45deg, #7F00FF, #00C3FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: fadeSlideDown 1s ease-out;
-}
+    #main-content {
+      display: none;
+      padding: 16px;
+    }
 
-select, input, button {
-  padding: 12px;
-  margin: 12px;
-  font-size: 16px;
-  width: 90%;
-  max-width: 400px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-select, input {
-  background: #1f1f1f;
-  color: white;
-}
-button {
-  background: linear-gradient(45deg, #7F00FF, #00C3FF);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
-  transition: transform 0.3s;
-}
-button:hover {
-  transform: scale(1.05);
-}
+    #header {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin: 20px 0;
+      background: linear-gradient(45deg, #7F00FF, #00C3FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-#result {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.hook {
-  background: #1e1e1e;
-  margin: 10px;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(127, 0, 255, 0.3);
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
-}
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      box-sizing: border-box;
+    }
 
-.copy-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: linear-gradient(45deg, #7F00FF, #00C3FF);
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    input, select {
+      background: #1f1f1f;
+      color: #fff;
+    }
 
-.notif {
-  position: fixed;
-  bottom: 20px;
-  background: #00C3FF;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  display: none;
-  animation: slideUp 0.5s;
-}
+    button {
+      background: linear-gradient(45deg, #7F00FF, #00C3FF);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 195, 255, 0.3);
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; visibility: hidden; }
-}
-@keyframes slideUp {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-@keyframes fadeSlideDown {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+    .hook {
+      background: #1e1e1e;
+      margin: 10px 0;
+      padding: 16px;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(127, 0, 255, 0.3);
+    }
 
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: linear-gradient(45deg, #7F00FF, #00C3FF);
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .notif {
+      position: fixed;
+      bottom: 20px;
+      background: #00C3FF;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    @media (max-width: 600px) {
+      #header { font-size: 24px; }
+    }
   </style>
 </head>
 <body>
+
 <div id="splash">
   <h1>Hook Maker</h1>
 </div>
+
 <div id="main-content">
-  <div id="header">Hook Maker</div>  <input type="text" id="videoTopic" placeholder="Tulis isi video kamu...">
-  <select id="category">
-    <option value="umum">Pilih kategori hook</option>
-    <option value="edukasi">Edukasi</option>
-    <option value="hiburan">Hiburan</option>
-    <option value="bisnis">Bisnis</option>
-    <option value="misteri">Misteri</option>
-    <option value="motivasi">Motivasi</option>
-    <option value="beauty">Kecantikan</option>
+  <div id="header">Hook Maker</div>
+
+  <input type="text" id="videoTopic" placeholder="Masukkan topik video kamu...">
+  
+  <select id="style">
+    <option value="dramatis">Dramatis</option>
     <option value="clickbait">Clickbait</option>
+    <option value="edukatif">Edukasi</option>
+    <option value="inspiratif">Inspiratif</option>
+    <option value="lucu">Lucu</option>
+    <option value="kaget">Mengagetkan</option>
+    <option value="misterius">Misterius</option>
+    <option value="sad">Sedih & Relatable</option>
   </select>
-  <button onclick="generateHooks()">Buat 3 Hook</button>  <div id="result"></div>
+
+  <button onclick="generateHooks()">Buat 3 Hook</button>
+
+  <div id="result"></div>
   <div id="notif" class="notif">Hook berhasil disalin!</div>
-</div><script>
-const hookTemplates = {
-  umum: [
-    "Kalau kamu suka {topic}, kamu wajib lihat ini!",
-    "Gak banyak orang tahu tentang {topic}.",
-    "Tunggu sampai akhir kalau kamu penasaran soal {topic}!",
-    "Apa yang terjadi saat {topic}? Tonton sekarang!",
-    "Kenapa {topic} bisa bikin semua orang heboh?"
+</div>
+
+<script>
+const templates = {
+  dramatis: [
+    "Kalau kamu tahu soal {topic}, hidupmu gak akan sama lagi.",
+    "Ini bukan cuma tentang {topic}, ini tentang hidup dan mati!",
+    "Semua berubah sejak {topic} terjadi.",
+    "Waktu pertama kali aku dengar {topic}, aku langsung merinding!",
+    "Banyak yang mengabaikan {topic}, sampai akhirnya menyesal."
   ],
-  edukasi: [
-    "Fakta mengejutkan tentang {topic} yang jarang dibahas!",
-    "Bisa jadi kamu salah paham soal {topic} selama ini.",
-    "Yuk belajar soal {topic} dengan cara menyenangkan!"
+  clickbait: [
+    "Kamu nggak akan percaya apa yang terjadi setelah {topic}!",
+    "{topic}? Ini dia fakta yang bikin geleng-geleng kepala!",
+    "Jangan lanjut sebelum tahu tentang {topic} ini!",
+    "Orang-orang nggak sadar bahwa {topic} ini sangat penting.",
+    "Terungkap! Rahasia tersembunyi di balik {topic}!"
   ],
-  hiburan: [
-    "Siap-siap ngakak! {topic} ini lucu banget.",
-    "Kalau kamu bosan, {topic} ini wajib kamu lihat.",
-    "Gokil! {topic} ini pasti bikin hari kamu ceria."
+  edukatif: [
+    "Apa sebenarnya yang terjadi dengan {topic}?",
+    "Inilah alasan kenapa {topic} sangat penting untuk kita pelajari.",
+    "Fakta mengejutkan tentang {topic} yang jarang dibahas.",
+    "Yuk kita bedah bersama apa itu {topic}.",
+    "Gimana sih cara kerja {topic}? Yuk cari tahu!"
   ],
-  // tambahkan kategori lainnya di sini...
+  inspiratif: [
+    "Jangan pernah menyerah! Ini kisah tentang {topic}.",
+    "{topic} bisa jadi awal dari hidupmu yang luar biasa.",
+    "Kalau mereka bisa karena {topic}, kamu juga bisa!",
+    "{topic} bukan akhir segalanya. Ini awal baru.",
+    "Kisah ini akan menginspirasi kamu untuk terus maju: {topic}."
+  ],
+  lucu: [
+    "{topic} ini bikin ngakak sampe nangis!",
+    "Kalau kamu lagi badmood, lihat {topic} ini.",
+    "Nggak kuat! {topic} ini bener-bener absurd.",
+    "Satu kata buat {topic}: NGAKAK!",
+    "Kamu bakal senyum-senyum sendiri lihat {topic}."
+  ],
+  kaget: [
+    "Kamu nggak siap dengan apa yang akan terjadi di {topic}!",
+    "Plot twist-nya bener-bener gila di bagian {topic}!",
+    "Waktu {topic} muncul, semuanya berubah drastis.",
+    "Nggak ada yang nyangka ending dari {topic} begini.",
+    "Deg-degan banget pas {topic} muncul!"
+  ],
+  misterius: [
+    "Apa yang sebenarnya tersembunyi di balik {topic}?",
+    "Cerita tentang {topic} ini bikin bulu kuduk merinding!",
+    "Sampai sekarang, {topic} masih jadi misteri besar.",
+    "Banyak pertanyaan belum terjawab soal {topic}.",
+    "Mitos atau fakta? Temukan jawabannya di {topic}."
+  ],
+  sad: [
+    "Kadang hidup nggak adil... seperti cerita {topic}.",
+    "Nggak kuat lihat bagian {topic}-nya...",
+    "Ini bukan sekadar cerita. {topic} adalah kenyataan pahit.",
+    "Siap-siap baper lihat {topic}.",
+    "Satu cerita yang bikin hati tersentuh: {topic}."
+  ]
 };
 
 function generateHooks() {
   const topic = document.getElementById('videoTopic').value.trim();
-  const category = document.getElementById('category').value;
+  const style = document.getElementById('style').value;
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = "";
 
   if (!topic) {
-    resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>";
+    resultDiv.innerHTML = "<div class='hook'>Masukkan topik videomu dulu ya!</div>";
     return;
   }
 
-  const templates = hookTemplates[category] || hookTemplates['umum'];
-  let used = [];
-  for (let i = 0; i < 3; i++) {
-    let idx;
-    do {
-      idx = Math.floor(Math.random() * templates.length);
-    } while (used.includes(idx));
-    used.push(idx);
+  const hooks = templates[style];
+  const used = new Set();
 
-    const text = templates[idx].replace("{topic}", topic);
-    const hookElement = document.createElement('div');
-    hookElement.className = 'hook';
-    hookElement.innerHTML = `${text}<button class="copy-btn" onclick="copyToClipboard('${text.replace(/'/g, "\\'")}')">Copy</button>`;
-    resultDiv.appendChild(hookElement);
+  while (used.size < 3) {
+    const index = Math.floor(Math.random() * hooks.length);
+    if (!used.has(index)) {
+      used.add(index);
+      const text = hooks[index].replace("{topic}", topic);
+      const hookEl = document.createElement('div');
+      hookEl.className = 'hook';
+      hookEl.innerHTML = `
+        ${text}
+        <button class="copy-btn" onclick="copyToClipboard('${text.replace(/'/g, "\\'")}')">Copy</button>
+      `;
+      resultDiv.appendChild(hookEl);
+    }
   }
 }
 
@@ -207,7 +241,7 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
     const notif = document.getElementById('notif');
     notif.style.display = 'block';
-    setTimeout(() => { notif.style.display = 'none'; }, 2000);
+    setTimeout(() => notif.style.display = 'none', 2000);
   });
 }
 
@@ -216,5 +250,6 @@ setTimeout(() => {
   document.getElementById('main-content').style.display = 'block';
   document.body.style.overflow = 'auto';
 }, 4500);
-</script></body>
+</script>
+</body>
 </html>
