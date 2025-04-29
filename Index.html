@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <title>Hook Maker</title>
@@ -147,6 +148,10 @@
   <div id="notif" class="notif">Hook berhasil disalin!</div>
 </div>
 <script>
+window.onerror = function (message, source, lineno, colno, error) {
+  alert("JS Error: " + message + " at " + lineno + ":" + colno);
+};
+
 const hookData = {
   elegan: [
     "Kamu tidak akan percaya apa yang terjadi soal {topic}...",
@@ -183,7 +188,58 @@ const hookData = {
     "{topic} ini penuh teka-teki – dan kamu akan terkejut.",
     "Fakta mencengangkan tentang {topic} yang tersembunyi."
   ]
-};function generateHooks() { const topic = document.getElementById('videoTopic').value.trim(); const category = document.getElementById('category').value; const resultDiv = document.getElementById('result'); resultDiv.innerHTML = ""; if (topic === "") { resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>"; return; } const hooks = hookData[category].map(h => h.replace(/{topic}/g, topic)); let used = []; for (let i = 0; i < 3; i++) { let randomIndex; do { randomIndex = Math.floor(Math.random() * hooks.length); } while (used.includes(randomIndex)); used.push(randomIndex); const hookText = hooks[randomIndex]; const hookElement = document.createElement('div'); hookElement.className = 'hook'; hookElement.innerHTML = ${hookText} <button class="copy-btn" onclick="copyToClipboard('${hookText.replace(/'/g, "\\'")}')">Copy</button>; resultDiv.appendChild(hookElement); } } function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { const notif = document.getElementById('notif'); notif.style.display = 'block'; setTimeout(() => { notif.style.display = 'none'; }, 2000); }, (err) => { alert('Gagal menyalin teks: ', err); }); } setTimeout(() => { document.getElementById('splash').style.display = 'none'; document.getElementById('main-content').style.display = 'block'; document.body.style.overflow = 'auto'; }, 4500); </script>
+};
 
+function generateHooks() {
+  const topic = document.getElementById('videoTopic').value.trim();
+  const category = document.getElementById('category').value;
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = "";
+  if (topic === "") {
+    resultDiv.innerHTML = "<div class='hook'>Tolong isi dulu tema videomu!</div>";
+    return;
+  }
+  const hooks = hookData[category].map(h => h.replace(/{topic}/g, topic));
+  let used = [];
+  for (let i = 0; i < 3; i++) {
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * hooks.length);
+    } while (used.includes(randomIndex));
+    used.push(randomIndex);
+    const hookText = hooks[randomIndex];
+    const hookElement = document.createElement('div');
+    hookElement.className = 'hook';
+    hookElement.innerHTML = `
+      ${hookText}
+      <button class="copy-btn" onclick="copyToClipboard('${hookText.replace(/'/g, "\\'")}')">Copy</button>
+    `;
+    resultDiv.appendChild(hookElement);
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const notif = document.getElementById('notif');
+    notif.style.display = 'block';
+    setTimeout(() => { notif.style.display = 'none'; }, 2000);
+  }, (err) => {
+    alert('Gagal menyalin teks: ', err);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const splash = document.getElementById('splash');
+    const main = document.getElementById('main-content');
+    if (splash && main) {
+      splash.style.display = 'none';
+      main.style.display = 'block';
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto'; // FIX UTAMA
+    }
+  }, 4500);
+});
+</script>
 </body>
 </html> 
